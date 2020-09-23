@@ -40,4 +40,151 @@
         <tag>技术</tag>
       </tags>
   </entry>
+  <entry>
+    <title>hexo+hexo-theme-next+github博客的搭建</title>
+    <url>/2020/09/23/hexo+hexo-theme-next+github%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<p>每天查看博客，学习知识，今天我们也来搭建自己的博客。</p>
+<p><strong>开始之前，先给大家看张图，无图无真相。</strong></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/iccib9G9IAFPiao0MKKVyNuF3YVbbqgBfxDYQms1FDJERTkyudBMYFwC5zib97XoelfRrL3KiadUQycnoyYZnAAlRZg/0?wx_fmt=png" alt="image"></p>
+<blockquote>
+<p>这个就是我们的最终目标</p>
+</blockquote>
+<h3 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h3><ul>
+<li>系统  ==windows==</li>
+<li>node.js  ==版本v12.18.4==  <a href="https://nodejs.org/zh-cn/download/">下载路径</a></li>
+<li>Git <a href="https://git-scm.com/downloads">下载路径</a></li>
+</ul>
+<blockquote>
+<p><span style="color:#A52A2A;font-size:1.3em;">nodejs的安装及git的安装这里就不进行详细介绍了</span></p>
+</blockquote>
+<h3 id="hexo-是什么？"><a href="#hexo-是什么？" class="headerlink" title="hexo 是什么？"></a>hexo 是什么？</h3><blockquote>
+<p><strong>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</strong></p>
+</blockquote>
+<a id="more"></a>
+<h3 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h3><p>  上面环境准备就绪，打开dos命令框。</p>
+<h4 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h4>  <pre class="line-numbers language-none"><code class="language-none">$ npm install -g hexo-cli<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="验证hexo是否安装成功"><a href="#验证hexo是否安装成功" class="headerlink" title="验证hexo是否安装成功"></a>验证hexo是否安装成功</h4>  <pre class="line-numbers language-none"><code class="language-none">$ hexo -v<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="创建博客"><a href="#创建博客" class="headerlink" title="创建博客"></a>创建博客</h3><h4 id="1、创建一个空的文件夹，执行命令"><a href="#1、创建一个空的文件夹，执行命令" class="headerlink" title="1、创建一个空的文件夹，执行命令"></a>1、创建一个空的文件夹，执行命令</h4>  <pre class="line-numbers language-none"><code class="language-none">$ hexo init<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="2、执行生成命令"><a href="#2、执行生成命令" class="headerlink" title="2、执行生成命令"></a>2、执行生成命令</h4>  <pre class="line-numbers language-none"><code class="language-none">$ hexo generate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="3、开启服务"><a href="#3、开启服务" class="headerlink" title="3、开启服务"></a>3、开启服务</h4>  <pre class="line-numbers language-none"><code class="language-none">$ hexo server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="4、打开浏览器，输入如下："><a href="#4、打开浏览器，输入如下：" class="headerlink" title="4、打开浏览器，输入如下："></a>4、打开浏览器，输入如下：</h4>  <pre class="line-numbers language-none"><code class="language-none">localhost:4000<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>然后就会出现如下界面，说明博客已经创建成功了。<br><img src="https://mmbiz.qpic.cn/mmbiz_png/iccib9G9IAFPiao0MKKVyNuF3YVbbqgBfxDdbibQPvW6icvobEk12uazbBOcJCM2sSVj6sw7pBgQSqBD50RoOv2YQ5w/0?wx_fmt=png" alt="image"></p>
+<h2 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h2><p>我使用的主题是hexo-theme-nexT  <a href="https://github.com/theme-next/hexo-theme-next">主题地址</a></p>
+<h3 id="1、下载主题"><a href="#1、下载主题" class="headerlink" title="1、下载主题"></a>1、下载主题</h3><p> 我们通过git来进行克隆下来，首先进入到创建博客的目录，然后执行<br> <pre class="line-numbers language-none"><code class="language-none">$ git clone https:&#x2F;&#x2F;github.com&#x2F;theme-next&#x2F;hexo-theme-next themes&#x2F;next<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></p>
+<h3 id="2、配置主题"><a href="#2、配置主题" class="headerlink" title="2、配置主题"></a>2、配置主题</h3><ul>
+<li><p>首先我们叫博客的配置文件叫：根配置文件 <strong>=&gt;<code>创建博客的文件夹下</code></strong><br><img src="https://mmbiz.qpic.cn/mmbiz_png/iccib9G9IAFPiao0MKKVyNuF3YVbbqgBfxDnYaTkmSyx1AAhDxKicbND7NGeSuQVWDyH6ptKsicKHwsYzKAicJMMJXEw/0?wx_fmt=png" alt="image"></p>
+</li>
+<li><p>主题的配置文件叫：主题配置文件 <strong>=&gt;<code>创建博客的文件夹下/theme/next/</code></strong><br><img src="https://mmbiz.qpic.cn/mmbiz_png/iccib9G9IAFPiao0MKKVyNuF3YVbbqgBfxD8KjP0icDtMjz3gnkCurxRMa8OfFdXQbmczzhic9A9ia6wgZzwQslYVQuA/0?wx_fmt=png" alt="image"></p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><h4 id="1-打开根配置文件，找到如下："><a href="#1-打开根配置文件，找到如下：" class="headerlink" title="1. 打开根配置文件，找到如下："></a>1. 打开根配置文件，找到如下：</h4><blockquote>
+<p>#Extensions<br><br>##Plugins: <a href="https://hexo.io/plugins/">https://hexo.io/plugins/</a><br><br>##Themes: <a href="https://hexo.io/themes/">https://hexo.io/themes/</a><br><br>theme: next  <strong>(把这里替换成next)</strong></p>
+</blockquote>
+</li>
+</ul>
+<p>然后执行创建博客的<code>第2步</code>、<code>第3步</code> 。接着在浏览器中查看效果，这时候已经改变了。</p>
+<pre class="line-numbers language-none"><code class="language-none">$ hexo g
+$ hexo s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="2-主题默认是上下结构，我们改为左右结构"><a href="#2-主题默认是上下结构，我们改为左右结构" class="headerlink" title="2. 主题默认是上下结构，我们改为左右结构"></a>2. 主题默认是上下结构，我们改为左右结构</h4><ul>
+<li>打开主题配置文件找到如下<blockquote>
+<p>#Schemes<br><br>#scheme: Muse<br><br>#scheme: Mist<br><br>#scheme: Pisces<br><br>scheme: Gemini <strong>(把主题设置成Gemini)</strong></p>
+</blockquote>
+</li>
+</ul>
+<h4 id="3-修改头像部分如下："><a href="#3-修改头像部分如下：" class="headerlink" title="3. 修改头像部分如下："></a>3. 修改头像部分如下：</h4><p><img src="https://mmbiz.qpic.cn/mmbiz_png/iccib9G9IAFPiao0MKKVyNuF3YVbbqgBfxDaSTNJ9Mq3icvxlKnOX55NfymWKKEkMCuZjKSfXrwMxrLiadI7pCIbqfw/0?wx_fmt=png" alt="image"></p>
+<ul>
+<li>修改头像<br>打开主题配置文件，找到如下<blockquote>
+<p>avatar:<br><br>#Replace the default image and set the url here.<br><br>url: <code>头像地址(可以是本地，也可以网上图片，我使用的是)</code><a href="https://mmbiz.qpic.cn/mmbiz_png/iccib9G9IAFPiaRf9CcSkctpUlmbLRHR72wSdllaqf21JwIueIiadYM1mH0RGme31Ral4NhacRUSakMVdp9nl8iciaVw/0?wx_fmt=png">https://mmbiz.qpic.cn/mmbiz_png/iccib9G9IAFPiaRf9CcSkctpUlmbLRHR72wSdllaqf21JwIueIiadYM1mH0RGme31Ral4NhacRUSakMVdp9nl8iciaVw/0?wx_fmt=png</a><br><br>#If true, the avatar will be dispalyed in circle.<br><br>rounded: true <code>(是否设置成圆形)</code><br><br>#If true, the avatar will be rotated with the cursor.<br><br>rotated: false <code>(是否进行旋转)</code><br></p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<ul>
+<li>修改名称</li>
+</ul>
+<p>打开根配置文件，找到如下:  <code>这里我就不解释了</code></p>
+<blockquote>
+<p>#Site<br><br>title: hyli_teacher<br><br>subtitle: ‘’<br><br>description: ‘不要纠结于现在，努力奔跑就好了’<br><br>keywords:<br><br>author: hyli_teacher<br><br>language: zh-CN<br><br>timezone: ‘’<br></p>
+</blockquote>
+<hr>
+<h4 id="4-打开这些标签"><a href="#4-打开这些标签" class="headerlink" title="4. 打开这些标签"></a>4. 打开这些标签</h4><p><img src="https://mmbiz.qpic.cn/mmbiz_png/iccib9G9IAFPiao0MKKVyNuF3YVbbqgBfxDc3u9cr33CgaLVgWerVHabG60FZiaqtvASnb1hxpwXH0xNY1qiagv0ic7Q/0?wx_fmt=png" alt="image"></p>
+<p>打开主题配置文件，找到：</p>
+<blockquote>
+<p>menu:<br><br>  home: / || fa fa-home<code>(首页)</code><br><br>  about: /about/ || fa fa-user<code>(关于)</code><br><br>  tags: /tags/ || fa fa-tags<code>(标签)</code><br><br>  categories: /categories/ || fa fa-th<code>(分类)</code><br><br>  archives: /archives/ || fa fa-archive<code>(归档)</code><br><br>  #schedule: /schedule/ || fa fa-calendar<br><br>  #sitemap: /sitemap.xml || fa fa-sitemap<br><br>  #commonweal: /404/ || fa fa-heartbeat<br></p>
+</blockquote>
+<hr>
+<ul>
+<li><strong>搜索的添加</strong><br>在命令框中执行<pre class="line-numbers language-none"><code class="language-none">$ npm install hexo-generator-searchdb --save<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+打开根配置文件，在末尾添加<pre class="line-numbers language-none"><code class="language-none">search:
+  path: search.xml
+  field: post
+  content: true
+  format: html<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+打开主题根配置文件<pre class="line-numbers language-none"><code class="language-none"># Local Search
+# Dependencies: https:&#x2F;&#x2F;github.com&#x2F;theme-next&#x2F;hexo-generator-searchdb
+local_search:
+  enable: true  这里设置成true就可以了
+  # If auto, trigger search by changing input.
+  # If manual, trigger search by pressing enter key or search button.
+  trigger: auto
+  # Show top n results per article, show all results by setting to -1
+  top_n_per_article: 1
+  # Unescape html strings to the readable one.
+  unescape: false
+  # Preload the search data when the page loads.
+  preload: false<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<hr>
+<h4 id="5-添加关于、标签、分类的点击"><a href="#5-添加关于、标签、分类的点击" class="headerlink" title="5. 添加关于、标签、分类的点击"></a>5. 添加关于、标签、分类的点击</h4><ul>
+<li><strong>添加关于</strong><pre class="line-numbers language-none"><code class="language-none">$ hexo new page about<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>这时候就会在根目录/source/about/index.md生成这样的文件然后打开这个文件index.md<br>如下：</p>
+</blockquote>
+<pre class="line-numbers language-none"><code class="language-none">title: 关于我
+date: 2020-09-22 17:49:35
+type: about<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<hr>
+<ul>
+<li><strong>添加标签</strong><pre class="line-numbers language-none"><code class="language-none">$ hexo new page tags<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>这时候就会在根目录/source/tags/index.md生成这样的文件然后打开这个文件index.md<br>如下：</p>
+</blockquote>
+<pre class="line-numbers language-none"><code class="language-none">title: 标签
+date: 2020-09-22 17:49:35
+type: tags<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<hr>
+<ul>
+<li><strong>添加分类</strong><pre class="line-numbers language-none"><code class="language-none">$ hexo new page categories<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>这时候就会在根目录/source/tags/index.md生成这样的文件然后打开这个文件index.md<br>如下：</p>
+</blockquote>
+<pre class="line-numbers language-none"><code class="language-none">title: 分类
+date: 2020-09-22 17:49:35
+type: categories<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<h4 id="6-创建一个测试，分类是：hexo，标签是：技术和了解"><a href="#6-创建一个测试，分类是：hexo，标签是：技术和了解" class="headerlink" title="6. 创建一个测试，分类是：hexo，标签是：技术和了解"></a>6. 创建一个测试，分类是：hexo，标签是：技术和了解</h4><pre class="line-numbers language-none"><code class="language-none">$ hexo new post test<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>然后如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">title: other
+date: 2020-09-23 17:34:21
+tags: 
+  - 技术
+  - 了解
+categories: hexo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>接着在下面写正文就可以了。</p>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>技术</tag>
+        <tag>了解</tag>
+      </tags>
+  </entry>
 </search>
