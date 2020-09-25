@@ -1,28 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>hexo的创建</title>
-    <url>/2020/09/22/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo generate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+    <title>Bitmap的在不同的Drawable下的内存占用及分析</title>
+    <url>/2020/09/25/Bitmap%E7%9A%84%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%9A%84Drawable%E4%B8%8B%E7%9A%84%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E5%8F%8A%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<blockquote>
+<p>微信公众号：Lucidastar<br>如有问题或建议，请公众号留言<br>最近更新：<code>2020-09-25</code></p>
+</blockquote>
+<p>平常我们使用图片的地方很多，比如图片的压缩、加载、裁剪等等。今天我们主要从Bitmap的基础进行了解。</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="1、一张图片放到手机中内存是如何计算的？"><a href="#1、一张图片放到手机中内存是如何计算的？" class="headerlink" title="1、一张图片放到手机中内存是如何计算的？"></a>1、一张图片放到手机中内存是如何计算的？</h3><pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;获取占用内存大小
+    public final int getByteCount(Bitmap bitmap) &#123;
+        &#x2F;&#x2F; int result permits bitmaps up to 46,340 x 46,340
+        KLog.d(&quot;getByteCount:&quot;+bitmap.getByteCount());
+        return bitmap.getRowBytes() * bitmap.getHeight();&#x2F;&#x2F;图片的水平的字节数*图片的高度就是占用的内存
+    &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这是通过api进行获取的，具体的就不解释了。</p>
+<blockquote>
+<p><strong>图片占用的内存=图片的宽度×图片的长度×单位像素占用的字节数</strong></p>
+</blockquote>
 <a id="more"></a>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo deploy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li><h4 id="Android中默认单位像素占用的字节数是多少呢？"><a href="#Android中默认单位像素占用的字节数是多少呢？" class="headerlink" title="Android中默认单位像素占用的字节数是多少呢？"></a>Android中默认单位像素占用的字节数是多少呢？</h4><pre class="line-numbers language-none"><code class="language-none">Bitmap bitmap &#x3D; BitmapFactory.decodeResource(getResources(), R.drawable.forself);
+KLog.d(&quot;bitmapConfig:&quot;+bitmap3.getConfig());<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+默认打印：<code>bitmapConfig:ARGB_8888</code>也就是默认设置的</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Bitmap.Config</th>
+<th>值</th>
+<th>描述</th>
+<th>占用内存(字节)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bitmap.Config</td>
+<td>ARGB_8888</td>
+<td>表示32位的ARGB位图</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Bitmap.Config</td>
+<td>ARGB_4444</td>
+<td>表示16位的ARGB位图</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Bitmap.Config</td>
+<td>RGB_565</td>
+<td>表示16位的RGB位图</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Bitmap.Config</td>
+<td>ALPHA_8</td>
+<td>表示8位的Alpha位图</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<ul>
+<li><h4 id="density，densityDpi，targetDensity的区别及关系"><a href="#density，densityDpi，targetDensity的区别及关系" class="headerlink" title="density，densityDpi，targetDensity的区别及关系"></a>density，densityDpi，targetDensity的区别及关系</h4><table>
+<thead>
+<tr>
+<th>density</th>
+<th align="center">densityDpi</th>
+<th>res</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td align="center">160</td>
+<td>mdpi</td>
+</tr>
+<tr>
+<td>1.5</td>
+<td align="center">240</td>
+<td>hdpi</td>
+</tr>
+<tr>
+<td>2</td>
+<td align="center">320</td>
+<td>xhdpi</td>
+</tr>
+<tr>
+<td>3</td>
+<td align="center">480</td>
+<td>xxhdpi</td>
+</tr>
+<tr>
+<td>4</td>
+<td align="center">640</td>
+<td>xxxhdpi</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>px = density * dp;</li>
+<li>density = dpi / 160;</li>
+<li>px = dp * (dpi / 160);</li>
+</ul>
+</blockquote>
+<ul>
+<li><h4 id="同样的一张图片放到不同的drawable文件夹下占用内存是多少呢？"><a href="#同样的一张图片放到不同的drawable文件夹下占用内存是多少呢？" class="headerlink" title="同样的一张图片放到不同的drawable文件夹下占用内存是多少呢？"></a>同样的一张图片放到不同的drawable文件夹下占用内存是多少呢？</h4><strong>使用的是小米node，分辨率是：1440x2560;图片大小：559x372</strong><pre class="line-numbers language-none"><code class="language-none">public final int getByteCount(Bitmap bitmap) &#123;
+        &#x2F;&#x2F; int result permits bitmaps up to 46,340 x 46,340
+        KLog.d(&quot;getByteCount:&quot;+bitmap.getByteCount());
+        return bitmap.getRowBytes() * bitmap.getHeight();&#x2F;&#x2F;图片的水平的字节数*图片的高度就是占用的内存
+    &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>drawable-mdpi === 图片占用内存的大小:13308672  width:2236;height:1488(2236x1488x4=13308672)</li>
+<li>drawable-hdpi === 图片占用内存的大小:5916288   width:1491;height:992(1471x991x4=5916288)</li>
+<li>drawable-xhdpi === 图片占用内存的大小:3327168   width:1118;height:744(……)</li>
+<li>drawable-xxhdpi === 图片占用内存的大小:1478080  width:745;height:496(……)</li>
+<li>drawable-xxxhdpi === 图片占用内存的大小:831792  width:559;height:372(……)</li>
+</ul>
+<p>这是什么原因呢？图片是同样的图片，只是放到了不同的drawable文件夹下，但是占用的内存是不一样的，但是获取到的bitmap的宽高也是不一样的，占用的内存大，获取的图片宽高就大，这是什么原因呢？我们分析一下。</p>
+<ul>
+<li><p>也就是占用内存的大小=图片的宽x图片的高x一个像素占用了4个字节(ARGB_8888)</p>
+</li>
+<li><p>如果把这张放置在xxxhdpi的话，应该不会对图像进行放缩，也就是原始大小，所以我们在前面得到drawable-xxxh   dpi文件夹下，图片大小为559 372是完全可以理解的，就是图片本身的大小。</p>
+<ul>
+<li>相同的，如果一张图片很大，如果直接加载到内存中，那就会导致内存溢出，默认最大的内存是16M<pre class="line-numbers language-none"><code class="language-none">private static final int DECODE_BUFFER_SIZE &#x3D; 16 * 1024;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>当把图片放置在xxhdpi里面的时候，在xxxhdpi的设备上，图片长 = 559 (3/4) = 745.333，图片宽 = 372 (3/4) = 496，这与上面的测试结果是完全一致的。</p>
+</blockquote>
+<blockquote>
+<p>当把图片放置在xhdpi里面的时候，在xxxhdpi的设备上，图片长 = 559 (2/4) = 1118，图片宽 = 372 (2/4) = 744，这与上面的测试结果是完全一致的。</p>
+</blockquote>
+<ul>
+<li><strong>结论</strong><blockquote>
+<ol>
+<li>当图片放置在不同drawable文件夹中，且只有这一张图片时，运行设备会根据自身的屏幕密度，对图片进行放缩，放缩比例符合前面图上的规则</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<ol start="2">
+<li>图片文件的大小与在内存中占用的大小没关系，内存中实际占用大小与图片分辨率、像素显示参数有关</li>
+</ol>
+</blockquote>
+<h3 id="2、我们如何正确的把一张大图加载到界面的控件上呢-或者说固定大小的ImageView加载一张大图，我们该如何解决呢-？"><a href="#2、我们如何正确的把一张大图加载到界面的控件上呢-或者说固定大小的ImageView加载一张大图，我们该如何解决呢-？" class="headerlink" title="2、我们如何正确的把一张大图加载到界面的控件上呢(或者说固定大小的ImageView加载一张大图，我们该如何解决呢)？"></a>2、我们如何正确的把一张大图加载到界面的控件上呢(或者说固定大小的ImageView加载一张大图，我们该如何解决呢)？</h3><blockquote>
+<p>比如一张500x500的图，要放到60x60的ImageView的控件上，就没有必要把整张原图都加载到内存中。</p>
+</blockquote>
+<p>引自android中文文档<code>http://hukai.me/android-training-course-in-chinese/graphics/displaying-bitmaps/load-bitmap.html</code></p>
+<ul>
+<li>为了告诉解码器去加载一个缩小版本的图片到内存中，需要在BitmapFactory.Options 中设置 inSampleSize 的值。例如, 一个分辨率为2048x1536的图片，如果设置 inSampleSize 为4，那么会产出一个大约512x384大小的Bitmap。加载这张缩小的图片仅仅使用大概0.75MB的内存，如果是加载完整尺寸的图片，那么大概需要花费12MB（前提都是Bitmap的配置是 ARGB_8888）。下面有一段根据目标图片大小来计算Sample图片大小的代码示例：<pre class="line-numbers language-none"><code class="language-none">public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) &#123;
+    &#x2F;&#x2F; Raw height and width of image
+    final int height &#x3D; options.outHeight;
+    final int width &#x3D; options.outWidth;
+    int inSampleSize &#x3D; 1;
+    if (height &gt; reqHeight || width &gt; reqWidth) &#123;
+    
+        final int halfHeight &#x3D; height &#x2F; 2;
+        final int halfWidth &#x3D; width &#x2F; 2;
+
+        &#x2F;&#x2F; Calculate the largest inSampleSize value that is a power of 2 and keeps both
+        &#x2F;&#x2F; height and width larger than the requested height and width.
+        while ((halfHeight &#x2F; inSampleSize) &gt; reqHeight
+                &amp;&amp; (halfWidth &#x2F; inSampleSize) &gt; reqWidth) &#123;
+            inSampleSize *&#x3D; 2;
+        &#125;
+    &#125;
+
+    return inSampleSize;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>为了使用该方法，首先需要设置 inJustDecodeBounds 为 true, 把options的值传递过来，然后设置 inSampleSize 的值并设置 inJustDecodeBounds 为 false，之后重新调用相关的解码方法。</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
+        int reqWidth, int reqHeight) &#123;
+
+    &#x2F;&#x2F; First decode with inJustDecodeBounds&#x3D;true to check dimensions
+    final BitmapFactory.Options options &#x3D; new BitmapFactory.Options();
+    options.inJustDecodeBounds &#x3D; true;
+    BitmapFactory.decodeResource(res, resId, options);
+
+    &#x2F;&#x2F; Calculate inSampleSize
+    options.inSampleSize &#x3D; calculateInSampleSize(options, reqWidth, reqHeight);
+
+    &#x2F;&#x2F; Decode bitmap with inSampleSize set
+    options.inJustDecodeBounds &#x3D; false;
+    return BitmapFactory.decodeResource(res, resId, options);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>使用上面这个方法可以简单地加载一张任意大小的图片。如下面的代码样例显示了一个接近 60x60像素的缩略图：<pre class="line-numbers language-none"><code class="language-none">mImageView.setImageBitmap(
+    decodeSampledBitmapFromResource(getResources(), R.id.myimage, 100, 100));<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<h4 id="inSampleSize是什么呢？有什么作用呢？"><a href="#inSampleSize是什么呢？有什么作用呢？" class="headerlink" title="inSampleSize是什么呢？有什么作用呢？"></a>inSampleSize是什么呢？有什么作用呢？</h4><ul>
+<li>如果设置为大于1的值，则请求解码器对原始图像进行子采样，返回较小的图像以节省内存。样本大小是对应于解码位图中单个像素的任一维度的像素数。例如，inSampleSize==4返回图像，该图像为原始图像宽度/高度的1/4，像素数的1/16。任何值&lt;=1将被视为1。注：解码器使用基于2的幂的最终值，任何其他值都将向下舍入到最接近的2的幂次</li>
+</ul>
+<blockquote>
+<p>这是对inSampleSize的注释翻译</p>
+</blockquote>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/iccib9G9IAFPhSwdibNCmTBzKD57YoqXpT0HhDKLNX4dVHIo44H5IiaOOHxpQUw0c8Yn63vGNBxyJPfYsqpraxiaeyQ/0?wx_fmt=jpeg" alt="Lucidastar"></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
 ]]></content>
       <categories>
-        <category>hexo</category>
+        <category>Android基础</category>
       </categories>
       <tags>
         <tag>技术</tag>
-        <tag>了解</tag>
       </tags>
   </entry>
   <entry>
