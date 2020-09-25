@@ -199,34 +199,30 @@ KLog.d(&quot;bitmapConfig:&quot;+bitmap3.getConfig());<span aria-hidden="true" c
 <blockquote>
 <p>这是对inSampleSize的注释翻译</p>
 </blockquote>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/iccib9G9IAFPhSwdibNCmTBzKD57YoqXpT0HhDKLNX4dVHIo44H5IiaOOHxpQUw0c8Yn63vGNBxyJPfYsqpraxiaeyQ/0?wx_fmt=jpeg" alt="Lucidastar"></p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
+<p><img src="/images/qrcode_for_gh.jpg" alt="Lucidastar"></p>
 ]]></content>
       <categories>
         <category>Android基础</category>
+      </categories>
+      <tags>
+        <tag>技术</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>测试</title>
+    <url>/2020/09/23/test/</url>
+    <content><![CDATA[<h2 id="这是测试"><a href="#这是测试" class="headerlink" title="这是测试"></a>这是测试</h2><pre class="line-numbers language-none"><code class="language-none">int val ;
+TreeNode left;
+TreeNode right;
+public TreeNode(int val) &#123;
+    this.val &#x3D; val;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p><strong>这时内容</strong><br>添加的内容<br>~</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>hexo</category>
       </categories>
       <tags>
         <tag>技术</tag>
@@ -389,26 +385,6 @@ categories: hexo<span aria-hidden="true" class="line-numbers-rows"><span></span>
       <tags>
         <tag>技术</tag>
         <tag>了解</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>测试</title>
-    <url>/2020/09/23/test/</url>
-    <content><![CDATA[<h2 id="这是测试"><a href="#这是测试" class="headerlink" title="这是测试"></a>这是测试</h2><pre class="line-numbers language-none"><code class="language-none">int val ;
-TreeNode left;
-TreeNode right;
-public TreeNode(int val) &#123;
-    this.val &#x3D; val;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<blockquote>
-<p><strong>这时内容</strong><br>添加的内容<br>~</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>技术</tag>
       </tags>
   </entry>
 </search>
