@@ -209,6 +209,73 @@ KLog.d(&quot;bitmapConfig:&quot;+bitmap3.getConfig());<span aria-hidden="true" c
       </tags>
   </entry>
   <entry>
+    <title>Studio如何进行生成jar或aar</title>
+    <url>/2020/11/04/Studio%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E7%94%9F%E6%88%90jar%E6%88%96aar/</url>
+    <content><![CDATA[<blockquote>
+<p>微信公众号：Lucidastar<br>如有问题或建议，请公众号留言<br>最近更新：<code>2020-11-04</code></p>
+</blockquote>
+<h2 id="通过Android-Studio如何进行生成jar"><a href="#通过Android-Studio如何进行生成jar" class="headerlink" title="通过Android Studio如何进行生成jar"></a>通过Android Studio如何进行生成jar</h2><p><strong>==我的Android studio版本是4.1.0==</strong></p>
+<h3 id="一-通过Maven仓库中获取对应的jar"><a href="#一-通过Maven仓库中获取对应的jar" class="headerlink" title="一.通过Maven仓库中获取对应的jar"></a>一.通过Maven仓库中获取对应的jar</h3><h4 id="Maven的搜索地址-https-search-maven-org"><a href="#Maven的搜索地址-https-search-maven-org" class="headerlink" title="Maven的搜索地址 https://search.maven.org/"></a><strong><a href="https://search.maven.org/">Maven的搜索地址</a></strong> <a href="https://search.maven.org/">https://search.maven.org/</a></h4><blockquote>
+<p>我们以OKHttp为例 </p>
+</blockquote>
+<ul>
+<li><p>输入我们搜索的内容</p>
+</li>
+<li><p>找到相对应的okhttp（我们以4.9.0版本为例子）</p>
+<blockquote>
+<p><a href="https://search.maven.org/artifact/com.squareup.okhttp3/okhttp/4.9.0/jar">https://search.maven.org/artifact/com.squareup.okhttp3/okhttp/4.9.0/jar</a></p>
+</blockquote>
+</li>
+<li><p>在右上角通过download可以下载相对应的jar，还有源码等。</p>
+<h3 id="二-通过Android-Studio来生成jar"><a href="#二-通过Android-Studio来生成jar" class="headerlink" title="二.通过Android Studio来生成jar"></a>二.通过Android Studio来生成jar</h3></li>
+</ul>
+<ol>
+<li>创建一个module，phone或者lib都可以</li>
+<li>在build.gradle中引入okhttp<blockquote>
+<p>implementation(“com.squareup.okhttp3:okhttp:4.9.0”)</p>
+</blockquote>
+</li>
+<li>Sync Project(也就是上面状态栏那个大象按钮)</li>
+<li>在Android Studio中，我们就可以在External Libraries中找到相对应的包名，然后找到相对应的jar，右击，打开文件位置，就可以找到相对应的jar了</li>
+</ol>
+<h3 id="三-通过命令来为我们自己创建的Lib进行生产jar"><a href="#三-通过命令来为我们自己创建的Lib进行生产jar" class="headerlink" title="三.通过命令来为我们自己创建的Lib进行生产jar"></a>三.通过命令来为我们自己创建的Lib进行生产jar</h3><ul>
+<li><strong>创建一个module，类型是Lib类型的</strong></li>
+<li><strong>编写我们的代码</strong></li>
+<li><strong>在我们创建的module下的build.gradle中添加如下</strong><pre class="line-numbers language-none"><code class="language-none">task makeJar(type: Copy) &#123;
+        &#x2F;&#x2F;删除存在的
+        delete &#39;build&#x2F;libs&#x2F;testLibrary.jar&#39;
+        &#x2F;&#x2F;设置拷贝的文件
+        from(&#39;build&#x2F;intermediates&#x2F;packaged-classes&#x2F;release&#x2F;&#39;)
+        &#x2F;&#x2F;打进jar包后的文件目录
+        into(&#39;build&#x2F;libs&#x2F;&#39;)
+        &#x2F;&#x2F;将classes.jar放入build&#x2F;libs&#x2F;目录下
+        &#x2F;&#x2F;include ,exclude参数来设置过滤
+        &#x2F;&#x2F;（我们只关心classes.jar这个文件）
+        include(&#39;classes.jar&#39;)
+        &#x2F;&#x2F;指定打包的class
+&#x2F;&#x2F;        include &quot;com&#x2F;test&#x2F;**&#x2F;*.class&quot;
+        &#x2F;&#x2F;重命名
+        rename (&#39;classes.jar&#39;, &#39;testLibrary.jar&#39;)
+    &#125;
+    makeJar.dependsOn(build)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><strong>在Terminal中执行命令,gradlew makeJar就会生产jar</strong><blockquote>
+<p>jar 的位置build/intermediates/lib/中 </p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>aar的位置在build/intermediates/outputs/aar中</p>
+</blockquote>
+<p><img src="/images/qrcode_for_gh.jpg" alt="Lucidastar"></p>
+]]></content>
+      <categories>
+        <category>Android基础</category>
+      </categories>
+      <tags>
+        <tag>技术</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>测试</title>
     <url>/2020/09/23/test/</url>
     <content><![CDATA[<h2 id="这是测试"><a href="#这是测试" class="headerlink" title="这是测试"></a>这是测试</h2><pre class="line-numbers language-none"><code class="language-none">int val ;
